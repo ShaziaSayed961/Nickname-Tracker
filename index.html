@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nickname Tracker</title>
+</head>
+<body>
+    <form action="">
+        
+        <input id="nickname" name="nickname" type="text">
+        <button type="submit">Submit</button>
+    </form>
+    <p id="nickname-count">Total nicknames: 0</p>
+    <ul id="nickname-list"></ul>
+    <script>
+        const form=document.querySelector("form");
+        
+
+        const nicknameVal=document.querySelector("#nickname");
+          form.addEventListener('submit',(e)=>{
+            console.log(nicknameVal.value);
+             e.preventDefault();
+          
+           if(nicknameVal.value.trim()===""){
+              return
+            }
+             
+            const list=document.getElementById("nickname-list");
+            const li=document.createElement("li");
+            const spanElement=document.createElement("span");
+           spanElement.textContent=nicknameVal.value.trim();
+            li.appendChild(spanElement);
+            list.appendChild(li);
+            const counter=document.getElementById("nickname-count");
+            counter.textContent=`total nickname: ${list.children.length}`;
+
+            const deleteButton=document.createElement("button");
+            deleteButton.textContent="Delete";
+            li.appendChild(deleteButton);
+            deleteButton.addEventListener('click',()=>{
+                li.remove();
+                counter.textContent=`total nickname: ${list.children.length}`;
+            })
+
+            const editButton=document.createElement("button");
+            editButton.textContent="Edit";
+            li.appendChild(editButton);
+            editButton.addEventListener('click',()=>{
+                const editedName=prompt("Enter new nickname?");
+                if (editedName!== null && editedName.trim()!=="") {
+                    spanElement.textContent = editedName.trim();
+                 }
+                //spanElement.textContent=editedName;
+            })
+            nicknameVal.value = "";
+            
+
+            
+          })
+    </script>
+</body>
+</html>
